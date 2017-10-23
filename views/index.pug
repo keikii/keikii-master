@@ -1,0 +1,10 @@
+html(ng-app="keikii")
+    include head.pug
+
+block content
+  h1= title
+  a.btn.btn-default(role="button", data-toggle="modal" data-target="#addbook") Add a Book
+
+
+  div.modal.fade#addbook
+    include addBook.pug

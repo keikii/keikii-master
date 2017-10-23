@@ -1,0 +1,188 @@
+block content
+    script(src="/javascripts/controller/BookController.js")
+    div.modal-dialog
+        div.modal-content
+            div.modal-header
+                button.close(data-dismiss="modal" , aria-label="Close")
+                    span(aria-hidden="true") &times;
+                h4='Add a Book'
+            div(ng-controller="BookController").modal-body
+                div.form-horizontal(name="basic")
+                    h2='Generic Information'
+                    div.form-group
+                        label.col-sm-2.control-label(for="title") Title:
+                        div.col-sm-10
+                            input#title.form-control(type='text', name='title', placeholder='Book Title')
+                    div.form-group
+                        label.col-sm-2.control-label(for="author") Author:
+                        div.col-sm-10
+                            input#author.form-control(type='text', name='author', placeholder='Author')
+                    div.form-group
+                        label.col-sm-2.control-label(for="series") Series:
+                        div.col-sm-10
+                            input#series.form-control(type='text', name='series', placeholder='Series')
+                    div.form-group
+                        label.col-sm-2.control-label(for="seriesPlace") Series Place:
+                        div.col-sm-10
+                            input#seriesPlace.form-control(type='number', name='seriesPlace', placeholder='1')
+                    div.form-group
+                        label.col-sm-2.control-label Book Types:
+                        div.col-sm-10
+                            div.checkbox
+                                label
+                                    input(type='checkbox' name='novel' ng-model="novel")
+                                    = "Novel"
+                                label
+                                    input(type='checkbox' name='novella' ng-model="novella")
+                                    = "Novella"
+                                label
+                                    input(type='checkbox' name='shortStory' ng-model="shortStory")
+                                    = "Short Story"
+                                label
+                                    input(type='checkbox' name='audiobook' ng-model="audiobook")
+                                    = "Audiobook"
+                                label
+                                    input(type='checkbox' name='comic' ng-model="comic")
+                                    = "Comic"
+                                label
+                                    input(type='checkbox' name='collection' ng-model="collection")
+                                    = "Collection"
+                                label
+                                    input(type='checkbox' name='other' ng-model="other")
+                                    = "Other"
+                div.form-horizontal(name="additional")
+                    h2="Additional Information"
+                    div.form-group
+                        label.col-sm-2.control-label(for="releaseDate") Release Date:
+                        div.col-sm-10
+                            input#releaseDate.form-control(type='date', name='releaseDate')
+                    div.form-group
+                        label.col-sm-2.control-label(for="narrator") Narrator:
+                        div.col-sm-10
+                            input#narrator.form-control(type='text', name='narrator', placeholder='Narrator')
+                    div.form-group
+                        label.col-sm-2.control-label(for="pov") Point of View:
+                        div.col-sm-10
+                            select#pov.form-control
+                                option(value="first") 1st Person
+                                option(value="third") 3rd Person
+                                option(value="thirdlimited") 3rd Person Limited
+                                option(value="thirdomniscient") 3rd Person Omniscient
+                                option(value="second") 2nd Person
+                                option(value="none") No Narration     
+
+                    div.form-group(ng-show="novella || shortStory")
+                        label.col-sm-2.control-label(for="anthology") Anthology:
+                        div.col-sm-10
+                            input#anthology.form-control(type='text', name='anthology', placeholder='Anthology')
+            
+                    div.form-group(ng-show="novel || novella || shortStory || comic")
+                        label.col-sm-2.control-label(for="pages") Pages:
+                        div.col-sm-10
+                            input#pages.form-control(type='number', name='pages', placeholder='1')
+                    div.form-group(ng-show="novel || novella || shortStory || comic")
+                        label.col-sm-2.control-label(for="words") Words:
+                        div.col-sm-10
+                            input#words.form-control(type='number', name='words', placeholder='1') 
+                    div.form-group(ng-show="comic")
+                        label.col-sm-2.control-label(for="volumes") Volumes:
+                        div.col-sm-10
+                            input#volumes.form-control(type='number', name='volumes', placeholder='1')
+                    div.form-group(ng-show="comic")
+                        label.col-sm-2.control-label(for="issues") Issues:
+                        div.col-sm-10
+                            input#issues.form-control(type='number', name='issues', placeholder='1')
+                    div.form-group(ng-show="comic")
+                        div.col-sm-10
+                            label.col-sm-2.control-label(for="ccomplete") Complete:
+                            div.col-sm-10
+                                input.checkbox(type='checkbox', name='ccomplete')
+                    div.form-group(ng-show="audiobook")
+                        label.col-sm-2.control-label(for="abnarrator") Narrator:
+                        div.col-sm-10
+                            input#narrator.form-control(type='text', name='abnarrator', placeholder='Narrator')
+                    div.form-group(ng-show="audiobook")
+                        label.col-sm-2.control-label(for="ablength") Length:
+                        div.col-sm-10
+                            input#ablength.form-control(type='{{ myTime | durationFormat }}', name='ablength', placeholder="HH:mm:ss")
+                    div.form-group(ng-show="audiobook")
+                        label.col-sm-2.control-label Abridged:
+                        div.col-sm-10
+                            div.radio
+                                label  
+                                    input(type='radio', name='abtype', value='Unabridged')
+                                    = "Unabridged"
+                                label 
+                                    input(type='radio', name='abtype', value='Abridged')
+                                    = "Abridged"
+                                label 
+                                    input(type='radio', name='abtype', value='Graphic Audio')
+                                    = "Graphic Audio"
+                                
+
+                                    
+                            
+                div.form-horizontal(name="tags")
+                    h2='Tags'        
+                    div.form-group
+                        label.col-sm-2.control-label Genres:
+                        div.col-sm-10
+                            div.checkbox
+                                label(ng-repeat="genre in genres")
+                                    input(type="checkbox" name="{{genre}}")
+                                    = "{{genre}}"
+
+                    div.form-group
+                        label.col-sm-2.control-label Creatures:
+                        div.col-sm-10
+                             div.checkbox
+                                label(ng-repeat="creature in creatures")
+                                    input(type="checkbox" name="{{creature}}")
+                                    = "{{creature}}"
+
+                    div.form-group
+                        label.col-sm-2.control-label Jobs:
+                        div.col-sm-10
+                            div.checkbox
+                                label(ng-repeat="job in jobs")
+                                    input(type="checkbox" name="{{job}}")
+                                    = "{{job}}"
+
+                    div.form-group
+                        label.col-sm-2.control-label Love:
+                        div.col-sm-10
+                            div.checkbox
+                                label(ng-repeat="love in loves")
+                                    input(type="checkbox" name="{{love}}")
+                                    = "{{love}}"
+
+                    div.form-group
+                        label.col-sm-2.control-label World:
+                        div.col-sm-10
+                            div.checkbox
+                                label(ng-repeat="world in worlds")
+                                    input(type="checkbox" name="{{world}}")
+                                    = "{{world}}"
+
+                    div.form-group
+                        label.col-sm-2.control-label Annoyances:
+                        div.col-sm-10
+                            div.checkbox
+                                label(ng-repeat="annoyance in annoyances")
+                                    input(type="checkbox" name="{{annoyance}}")
+                                    = "{{annoyance}}"
+
+                    div.form-group
+                        label.col-sm-2.control-label Controls:
+                        div.col-sm-10
+                            div.checkbox
+                                label(ng-repeat="control in controls")
+                                    input(type="checkbox" name="{{control}}")
+                                    = "{{control}}"    
+
+                div.modal-footer
+                    button.btn.btn-default(data-dismiss="modal") Close
+                    button.btn.btn-primary Save changes
+
+               
+            
